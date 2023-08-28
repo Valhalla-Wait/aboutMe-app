@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  color: white;
+}
+
+.nav-item {
+  @apply cursor-pointer px-[24px] py-[32px] align-middle active:bg-active;
+}
+
+.block-conteiner {
+  @apply px-[72px] py-[120px] grid
+}
+
+.block-subtitle {
+  @apply text-light-grey text-[26px] mb-[8px] font-semibold
+}
+
+.block-title {
+  @apply text-[32px] font-bold mb-[40px]
+}
+.tran {
+  transition: 0.2s;
+}
