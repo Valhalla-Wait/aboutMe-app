@@ -10,11 +10,12 @@ export default {
       'light-grey': '#8491A0',
       'dark': '#181823',
       'dark-grey': '#5B6876',
-      'active': '#5221E6',
+      'active-purple': '#5221E6',
       'black': '#000000',
       'blue-text': '#609BFF',
       'pink-text': '#E95D90',
-      'grey': '#252525'
+      'grey': '#252525',
+      'active-grey': '#414141'
     },
     extend: {},
   },

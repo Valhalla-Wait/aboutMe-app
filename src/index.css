@@ -10,7 +10,7 @@
 }
 
 .nav-item {
-  @apply cursor-pointer px-[24px] py-[32px] align-middle active:bg-active;
+  @apply cursor-pointer px-[24px] py-[32px] align-middle active:bg-active-purple;
 }
 
 .block-conteiner {

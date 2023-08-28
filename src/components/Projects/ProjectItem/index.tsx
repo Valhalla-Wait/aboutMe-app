@@ -1,11 +1,15 @@
+import { StackItem } from "../../../shared/ui/StackItem";
+
 export const ProjectItem = ({
     title,
     stack,
-    previewImg
+    previewImg,
+    github
 }:{
     title: string,
     stack: string[],
-    previewImg: string
+    previewImg: string,
+    github: string
 }) => {
     return (
         <div className="cursor-pointer max-w-[300px] w-full m-[20px] overflow-hidden bg-grey rounded-[18px] duration-200 hover:scale-110">
@@ -13,8 +17,9 @@ export const ProjectItem = ({
                 <img src={previewImg} alt="" />
             </div>
             <div className="p-[10px]">
-                <div>{title}</div>
-                <div>stack: {stack.join(', ')}</div>
+                <div className="font-bold">{title}</div>
+                <div>GitHub: {github}</div>
+                <div className="flex gap-[5px] mt-[12px]">{stack.map(item => <StackItem title={item} callback={() => console.log('hi')} removed/>)}</div>
             </div>
         </div>
     );
