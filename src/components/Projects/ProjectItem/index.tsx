@@ -18,8 +18,8 @@ export const ProjectItem = ({
             </div>
             <div className="p-[10px]">
                 <div className="font-bold">{title}</div>
-                <div>GitHub: {github}</div>
-                <div className="flex gap-[5px] mt-[12px]">{stack.map(item => <StackItem title={item} callback={() => console.log('hi')} removed/>)}</div>
+                <div>GitHub: <a className="underline" href={github}>{github}</a></div>
+                <div className="flex flex-wrap gap-[5px] mt-[12px]">{stack.map(item => <StackItem title={item} />)}</div>
             </div>
         </div>
     );

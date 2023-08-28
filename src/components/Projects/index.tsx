@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { ProjectItem } from "./ProjectItem";
 import TaskTrackerImg from "/tracker.jpg"
-import FunnelIcon from "@heroicons/react/24/outline/FunnelIcon"
+import BidsImg from "/bids.jpg"
+import AboutMeImg from "/aboutme.jpg"
+import NodeImg from "/node.jpg"
+import JsImg from "/js.jpg"
 import { FilterButton } from "./Filter";
-import { Modal } from "../../shared/ui/Modal";
 import { FilterModal } from "./Filter/FilterModal";
 
 const projects = [
@@ -13,94 +15,72 @@ const projects = [
         stack: [
             'React',
             'Redux',
-            'TypeScript'
+            'TypeScript',
+            'Styled Components',
+            'Ant-Design'
         ],
-        github: 'https:link'
+        github: 'https://github.com/Valhalla-Wait/Task-Tracker-App'
     },
     {
-        title: 'Task-Tracker',
-        img: TaskTrackerImg,
+        title: 'Task-Manager (backend)',
+        img: NodeImg,
+        stack: [
+            'TypeScript',
+            'Node.js',
+            'Nest',
+            'PostgreSQL',
+            'GraphQL',   
+            'Prisma',
+
+        ],
+        github: 'https://github.com/Valhalla-Wait/task-manager_backend'
+    },
+    {
+        title: 'Documents App (backend)',
+        img: NodeImg,
+        stack: [
+            'TypeScript',
+            'Node.js',
+            'Express',
+            'Sequalize',
+            'PostgreSQL'
+        ],
+        github: 'https://github.com/Valhalla-Wait/application-documents_back'
+    },
+    {
+        title: 'Documents App',
+        img: BidsImg,
         stack: [
             'React',
             'Redux',
-            'TypeScript'
+            'Ant-Design',
+            'TypeScript',
+            'Styled Components'
         ],
-        github: 'https:link'
+        github: 'https://github.com/Valhalla-Wait/application-documents_front'
     },
     {
-        title: 'Task-Tracker',
-        img: TaskTrackerImg,
+        title: 'AboutMe App',
+        img: AboutMeImg,
+        stack: [
+            'Tailwind',
+            'Vite',
+            'React',
+            'TypeScript',
+        ],
+        github: 'https://github.com/Valhalla-Wait/aboutMe-app'
+    },
+    {
+        title: 'Weather App',
+        img: JsImg,
         stack: [
             'React',
             'Redux',
-            'TypeScript'
+            'JavaScript'
         ],
-        github: 'https:link'
-    },
-    {
-        title: 'Task-Tracker',
-        img: TaskTrackerImg,
-        stack: [
-            'React',
-            'Redux',
-            'TypeScript'
-        ],
-        github: 'https:link'
-    },
-    {
-        title: 'Task-Tracker',
-        img: TaskTrackerImg,
-        stack: [
-            'React',
-            'Redux',
-            'TypeScript'
-        ],
-        github: 'https:link'
-    },
-    {
-        title: 'Task-Tracker',
-        img: TaskTrackerImg,
-        stack: [
-            'React',
-            'Redux',
-            'TypeScript'
-        ],
-        github: 'https:link'
-    },
-    {
-        title: 'Task-Tracker',
-        img: TaskTrackerImg,
-        stack: [
-            'React',
-            'Redux',
-            'TypeScript'
-        ],
-        github: 'https:link'
+        github: 'https://github.com/Valhalla-Wait/Weather-forecast-App'
     },
 ]
-
-// enum Technologies {
-//     react = 'React',
-//     redux = 'Redux',
-//     js = 'JavaScript',
-//     ts = 'TypeScript',
-//     styledComponents = 'Styled Components',
-//     html = 'HTML',
-//     css = 'CSS',
-//     scss = 'SCSS',
-//     tailwind = 'Tailwind',
-//     vite = 'Vite',
-//     effector = 'Effector',
-//     antDesign = 'Ant-Design',
-//     node = 'Node.js',
-//     express = 'Express',
-//     nest = 'Nest',
-//     graphql = 'GraphQL',
-//     prisma = 'Prisma',
-//     sequalize = 'Sequalize',
-//     sql = 'SQL',
-//     postgres = 'PostgreSQL',
-// }
 
 const technologies = [
     'React',
@@ -125,28 +105,6 @@ const technologies = [
 'PostgreSQL',
 ]
 
-// const projects = [
-//     {
-//         title: 'Task-Tracker-App',
-//         stack: [
-//             Technologies.react,
-//             Technologies.redux,
-//             Technologies.styledComponents,
-//             Technologies.ts
-//         ]
-//     },
-//     {
-//         title: 'Task-Tracker-Back',
-//         stack: [
-//             Technologies.node,
-//             Technologies.nest,
-//             Technologies.graphql,
-//             Technologies.prisma,
-//             Technologies.postgres,
-//             Technologies.ts
-//         ]
-//     }
-// ]
 export const Projects = () => {
     const [stackList, setStackList] = useState(technologies.map((item, index) => ({
         id: index,
@@ -154,13 +112,22 @@ export const Projects = () => {
     })))
     const [isShowFilterModal, setIsShowFilterModal] = useState(false)
     const [filteredProjects, setFilteredProjects] = useState(projects)
+    const [filterStack, setFilterStack] = useState<any[]>([])
+    
 
-    const setFilteredStack = (filteredStack: any[]) => setFilteredProjects(() => {
-        const newArr = projects.filter(project => filteredStack.forEach((value) => {
-            if(project.stack.includes(value.title)) return true
-        }))
-        return newArr
-    })
+    const setFilteredStack = (filteredStack: any[]) => {
+        setFilteredProjects(() => {
+            if(!filteredStack.length){
+                return projects
+            }else{
+                setFilterStack(filteredStack)
+                const newArr = projects.filter(project => project.stack.find(item => filteredStack.map(stackItem => stackItem.title).includes(item)))
+                return newArr
+            }
+            
+        })
+        setIsShowFilterModal(prev => !prev)
+    }
 
     const toggleShowFilterModal = () => setIsShowFilterModal(prev => !prev)
     return (
@@ -168,11 +135,8 @@ export const Projects = () => {
             <span className="block-subtitle">Projects</span>
             <span className="block-title">Мои пет-проекты:</span>
             <FilterButton toggleShowFilter={toggleShowFilterModal}/>
-            {isShowFilterModal && <FilterModal confirmFilter={(filteredStack: any[]) => setFilteredStack(filteredStack)} stackItems={stackList} />}
+            {isShowFilterModal && <FilterModal selectedFilter={filterStack} confirmFilter={(filteredStack: any[]) => setFilteredStack(filteredStack)} stackItems={stackList} />}
             <div className="flex justify-center flex-wrap">
-            {/* <Modal>
-                hello
-            </Modal> */}
                 {filteredProjects.map(({title, stack, img, github}) => <ProjectItem title={title} previewImg={img} github={github} stack={stack}/>)}
             </div>
         </div>

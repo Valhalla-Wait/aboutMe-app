@@ -2,8 +2,8 @@ import { useState } from "react"
 import { Modal } from "../../../../shared/ui/Modal"
 import { FilterModalItem } from "./FilterModalItem"
 
-export const FilterModal = ({stackItems, confirmFilter}:{stackItems:any[], confirmFilter: (filteredStack: any[]) => void}) => {
-    const [selectedStack, setSelectedStack] = useState<any[]>([])
+export const FilterModal = ({stackItems, confirmFilter, selectedFilter}:{stackItems:any[], confirmFilter: (filteredStack: any[]) => void, selectedFilter: any[]}) => {
+    const [selectedStack, setSelectedStack] = useState<any[]>(selectedFilter)
     
     const toggleActiveStackItem = (id: number) => {
 
